@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/thibautreichart/Cours/blockchainC-/blockchainC-.csproj",
+      "projectUniqueName": "/Users/thibautreichart/Cours/blockchainC-/api/blockchainC-.csproj",
       "projectName": "blockchainC-",
-      "projectPath": "/Users/thibautreichart/Cours/blockchainC-/blockchainC-.csproj",
+      "projectPath": "/Users/thibautreichart/Cours/blockchainC-/api/blockchainC-.csproj",
       "packagesPath": "/Users/thibautreichart/.nuget/packages/",
-      "outputPath": "/Users/thibautreichart/Cours/blockchainC-/obj/",
+      "outputPath": "/Users/thibautreichart/Cours/blockchainC-/api/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/thibautreichart/.nuget/NuGet/NuGet.Config"

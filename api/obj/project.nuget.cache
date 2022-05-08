@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "HrWavYmKE+KkNEkGhopEy0RH1sy7ToSsxOtebf+RdGg/alnFJFQvXd4pGIOqwAByQM21OuWbLGwrg7LE4yVm/g==",
+  "dgSpecHash": "bTzl5xEskCnnxZWOere9kP+zcPjx+UOVGCLHfpEQSgXi1C4spQmpD9fm/qoszJyl+YTyim/2xJSYMA+Mc5klmQ==",
   "success": true,
-  "projectFilePath": "/Users/thibautreichart/Cours/blockchainC-/blockchainC-.csproj",
+  "projectFilePath": "/Users/thibautreichart/Cours/blockchainC-/api/blockchainC-.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
