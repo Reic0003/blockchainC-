@@ -2,10 +2,13 @@ namespace blockchainC_
 {
     public class Chain
     {
+        public int security {get; set;}
         public List<Block>chain {get ; set;}  
 
+
         //Constructeur 
-        public Chain(){
+        public Chain(int security){
+            this.security = security ;
             this.chain = new List<Block>();
             initialiserChain();
         }
@@ -14,19 +17,20 @@ namespace blockchainC_
         public void initialiserChain(){
             //Creation du premier block de la chaine  
             Block firstBlock = new Block (0);
+            firstBlock.mineBlock(this.security);
             this.chain.Add(firstBlock); 
         }
 
         public Block getLastBlock(){
             return this.chain[this.chain.Count -1];
-        }
+        } 
 
         public void ajouterBlock(int data){
             //On creer les liens pour lier les blocks 
             Block nvBlock = new Block(data);
             nvBlock.previousHash = this.getLastBlock().hash;
             //On doit recalculer son hash maintenant que son previous hash a changé pour ne pas fausser la blockchain
-            nvBlock.hash = nvBlock.calculateHash();
+            nvBlock.mineBlock(this.security);
             this.chain.Add(nvBlock);
         }
 

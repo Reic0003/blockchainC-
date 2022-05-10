@@ -17,6 +17,8 @@ namespace blockchainC_
         /* Hash du bloc actuel */
         public int id {get ; set;} 
         /* n° du bloc */ 
+        public ulong salt {get ; set;} 
+        /*salt utile pour securiser la blockchain en plus du hash*/
         
         //Constructeur
         public Block(int data){
@@ -25,13 +27,14 @@ namespace blockchainC_
             this.previousHash = "previousHash" ; 
             this.hash = this.calculateHash();
             this.id = Compteur.idtotal ; 
+            this.salt = 0 ; 
             Compteur.idtotal ++ ; 
         }
 
         public String calculateHash(){
             //Recuperation des infos du bloc sous forme de string
             // On utilise un JSONStringify pour la data dans le cadre d'une structure de données
-            string temp = (this.id  + this.previousHash + this.timestamp + JsonSerializer.Serialize(this.data).ToString()) ;
+            string temp = (this.id  + this.previousHash + this.timestamp + this.salt + JsonSerializer.Serialize(this.data).ToString()) ;
             //hashage en SHA256
             using (SHA256 sha256Hash = SHA256.Create())
             {
@@ -53,6 +56,23 @@ namespace blockchainC_
         }
         public void afficherIdBlock(){
             Console.WriteLine(this.id);
+        }
+
+        public void mineBlock (int security){
+            List <String> comparTab = new List<string>() ; 
+            for (int i = 0; i < security; i++)
+            {
+                comparTab.Add("0");
+            }
+            string? compar = String.Join("",comparTab);
+            while (String.Compare(this.hash, 0, compar, 0, security)!=0)
+            {
+                this.hash = calculateHash();
+                if (this.salt %10000 == 0){
+                    Console.Write(".");
+                }  
+                this.salt ++ ; 
+            }
         }
     }
 }
