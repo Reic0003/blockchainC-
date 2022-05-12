@@ -14,8 +14,7 @@ namespace blockchainC_
     }
     public class Block
     {
-        public String timestamp {get ; set;}  
-        public int data {get ; set;}   
+        public String timestamp {get ; set;}    
         public String previousHash {get ; set;}   
         /* Pour lier les blocs et la vérification  */
         public String hash {get ; set;}  
@@ -24,12 +23,13 @@ namespace blockchainC_
         /* n° du bloc */ 
         public ulong salt {get ; set;} 
         /*salt utile pour securiser la blockchain en plus du hash*/
+        public List<Transaction> transactions {get; set;}
         
         //Constructeur
-        public Block(int data){
-            this.data = data ; 
-            this.timestamp = GetTimestamp(DateTime.Now); 
-            this.previousHash = "previousHash" ; 
+        public Block(){
+            this.timestamp = GetTimestamp(DateTime.Now);
+            this.transactions = new List<Transaction>(); 
+            this.previousHash = "NULL" ; 
             this.hash = this.calculateHash();
             this.id = Compteur.idtotal ; 
             this.salt = 0 ; 
@@ -38,8 +38,8 @@ namespace blockchainC_
 
         public String calculateHash(){
             //Recuperation des infos du bloc sous forme de string
-            // On utilise un JSONStringify pour la data dans le cadre d'une structure de données
-            string temp = (this.id  + this.previousHash + this.timestamp + this.salt + JsonSerializer.Serialize(this.data).ToString()) ;
+            // On utilise un JSONStringify pour les transactions 
+            string temp = (this.id  + this.previousHash + this.timestamp + this.salt + JsonSerializer.Serialize(this.transactions).ToString()) ;
             //hashage en SHA256
             using (SHA256 sha256Hash = SHA256.Create())
             {
@@ -72,7 +72,7 @@ namespace blockchainC_
         *   d'où l'ajout de la variable salt, qui s'incrémente au fur et à mesure des essais
         */
         public void mineBlock (int security){
-                
+                Console.WriteLine("Minage du bloc en cours...");
                 List <String> comparTab = new List<string>() ; 
                 for (int i = 0; i < security; i++)
                 {
@@ -85,8 +85,9 @@ namespace blockchainC_
                     this.hash = calculateHash();
                     if (this.salt %10000 == 0){
                         Console.Write(".");
-                    }  
+                    } 
                 }
+                Console.WriteLine("Bloc miné !");
             }
         }
 }
