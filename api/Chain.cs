@@ -47,7 +47,6 @@ namespace blockchainC_
                 if( actualBlock.hash != actualBlock.calculateHash()){
                     return false ;
                 }
-
                 if (actualBlock.previousHash != nextBlock.hash){
                     return false ; 
                 }
