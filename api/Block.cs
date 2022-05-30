@@ -9,9 +9,6 @@ namespace blockchainC_
     * Idtotal est à usage de variable globale
     *
     */
-    static class Compteur {
-        public static int idtotal = 0 ;
-    }
     public class Block
     {
         public String timestamp {get ; set;}    
@@ -19,8 +16,6 @@ namespace blockchainC_
         /* Pour lier les blocs et la vérification  */
         public String hash {get ; set;}  
         /* Hash du bloc actuel */
-        public int id {get ; set;} 
-        /* n° du bloc */ 
         public ulong salt {get ; set;} 
         /*salt utile pour securiser la blockchain en plus du hash*/
         public List<Transaction> transactions {get; set;}
@@ -29,17 +24,15 @@ namespace blockchainC_
         public Block(){
             this.timestamp = GetTimestamp(DateTime.Now);
             this.transactions = new List<Transaction>(); 
-            this.previousHash = "NULL" ; 
+            this.previousHash = "BLOCK GENESE" ; 
             this.hash = this.calculateHash();
-            this.id = Compteur.idtotal ; 
             this.salt = 0 ; 
-            Compteur.idtotal ++ ; 
         }
 
         public String calculateHash(){
             //Recuperation des infos du bloc sous forme de string
             // On utilise un JSONStringify pour les transactions 
-            string temp = (this.id  + this.previousHash + this.timestamp + this.salt + JsonSerializer.Serialize(this.transactions).ToString()) ;
+            string temp = (this.previousHash + this.timestamp + this.salt + JsonSerializer.Serialize(this.transactions).ToString()) ;
             //hashage en SHA256
             using (SHA256 sha256Hash = SHA256.Create())
             {
@@ -47,7 +40,7 @@ namespace blockchainC_
                 //Console.WriteLine(bytes);
                 StringBuilder tempHash = new StringBuilder();
                 for (int i = 0 ; i < bytes.Length; i++){
-                    //coersion en hexadécimal
+                    //conversion en hexadécimal
                     tempHash.Append(bytes[i].ToString("X2"));
                 }
                 return tempHash.ToString() ;
@@ -89,5 +82,16 @@ namespace blockchainC_
                 }
                 Console.WriteLine("Bloc miné !");
             }
+        public bool validTransaction(){
+            foreach (Transaction item in transactions)
+            {
+                if(item.isValid() == false){
+                    return false ; 
+                }
+            }
+
+            return true ;
+        }
+            
         }
 }

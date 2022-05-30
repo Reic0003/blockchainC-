@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/Homebrew) (preloaded format=pdflatex 2022.3.3)  10 MAY 2022 10:33
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/Homebrew) (preloaded format=pdflatex 2022.3.3)  10 MAY 2022 16:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -397,8 +397,7 @@ nd-pdftex.def
 File: l3backend-pdftex.def 2021-03-18 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count294
 \l__pdf_internal_box=\box49
-)
-No file RapportBlockChain605.aux.
+) (./RapportBlockChain605.aux)
 \openout1 = `RapportBlockChain605.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
@@ -419,6 +418,7 @@ LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 22.
 LaTeX Font Info:    ... okay on input line 22.
 LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 22.
 LaTeX Font Info:    ... okay on input line 22.
+
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -502,44 +502,49 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 22.
 LaTeX Info: Redefining \pageref on input line 22.
 LaTeX Info: Redefining \nameref on input line 22.
+ (./RapportBlockChain605.out) (./RapportBlockChain605.out)
 \@outlinefile=\write3
 \openout3 = `RapportBlockChain605.out'.
 
-<image/logo.jpg, id=4, 250.9375pt x 153.57375pt>
+<image/logo.jpg, id=8, 250.9375pt x 153.57375pt>
 File: image/logo.jpg Graphic file (type jpg)
 <use image/logo.jpg>
 Package pdftex.def Info: image/logo.jpg  used on input line 25.
 (pdftex.def)             Requested size: 142.26378pt x 87.06926pt.
- [1
+
+[1
 
 {/usr/local/Cellar/texlive/58837_1/share/texmf-dist/fonts/map/pdftex/updmap/pdf
-tex.map} <./image/logo.jpg>] (./RapportBlockChain605.aux)
+tex.map} <./image/logo.jpg>] (./RapportBlockChain605.toc)
+\tf@toc=\write4
+\openout4 = `RapportBlockChain605.toc'.
 
-Package rerunfilecheck Warning: File `RapportBlockChain605.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `RapportBlockChain605.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  D41D8CD98F00B204E9800998ECF8427E;0.
+ [2]
+(./RapportBlockChain605.aux)
+Package rerunfilecheck Info: File `RapportBlockChain605.out' has not changed.
+(rerunfilecheck)             Checksum: 5B3962BCEE216F9CEFC41384D645D963;98.
  ) 
 Here is how much of TeX's memory you used:
- 11114 strings out of 478994
- 162105 string characters out of 5850134
- 479597 words of memory out of 5000000
- 28470 multiletter control sequences out of 15000+600000
- 407497 words of font info for 33 fonts, out of 8000000 for 9000
+ 11138 strings out of 478994
+ 162461 string characters out of 5850134
+ 479848 words of memory out of 5000000
+ 28479 multiletter control sequences out of 15000+600000
+ 409823 words of font info for 36 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  71i,5n,74p,301b,424s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/Cellar/texlive/58837_1/share/texmf-dist/fonts/enc/dvips/cm-super/
 cm-super-t1.enc}</usr/local/Cellar/texlive/58837_1/share/texmf-dist/fonts/type1
-/public/cm-super/sfbx2074.pfb></usr/local/Cellar/texlive/58837_1/share/texmf-di
-st/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/Cellar/texlive/58837_1/
-share/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb>
-Output written on RapportBlockChain605.pdf (1 page, 69526 bytes).
+/public/cm-super/sfbx1095.pfb></usr/local/Cellar/texlive/58837_1/share/texmf-di
+st/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/Cellar/texlive/58837_1/
+share/texmf-dist/fonts/type1/public/cm-super/sfbx2074.pfb></usr/local/Cellar/te
+xlive/58837_1/share/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/l
+ocal/Cellar/texlive/58837_1/share/texmf-dist/fonts/type1/public/cm-super/sfrm12
+00.pfb></usr/local/Cellar/texlive/58837_1/share/texmf-dist/fonts/type1/public/c
+m-super/sfti1200.pfb>
+Output written on RapportBlockChain605.pdf (2 pages, 100514 bytes).
 PDF statistics:
- 27 PDF objects out of 1000 (max. 8388607)
- 19 compressed objects within 1 object stream
- 2 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 50 PDF objects out of 1000 (max. 8388607)
+ 38 compressed objects within 1 object stream
+ 5 named destinations out of 1000 (max. 500000)
+ 14 words of extra memory for PDF output out of 10000 (max. 10000000)
 

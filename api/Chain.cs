@@ -42,6 +42,7 @@ namespace blockchainC_
             {
                 nvBlock.transactions.Add(this.attente[i]);
             }
+            nvBlock.previousHash = this.getLastBlock().hash;
             nvBlock.mineBlock(this.security);
             this.chain.Add(nvBlock);
             /*
@@ -55,25 +56,38 @@ namespace blockchainC_
         /*
         * Fonction qui permet d'ajouter une transaction à la liste de celles déjà en attente
         */
-        public void ajoutTransaction (string receptionAddress, string envoiAddress, int data){
-            Transaction nvTransaction = new Transaction(data, receptionAddress, envoiAddress);
+        public void ajoutTransaction (Transaction nvTransaction){
+
+            if(nvTransaction.isValid() == false){
+                throw new Exception ("Transaction non valide");
+            }
+            
             this.attente.Add(nvTransaction);
         }
 
         public Boolean validChain(){
             // On vérifie manuellement pour le bloc d'origine 
             if(this.chain[0].hash != this.chain[0].calculateHash()){
+                Console.WriteLine("pb origine");
                 return false ; 
             }
             // On part du max pour retourner au bloc d'origine sans vérifier pour lui car il n'a pas de previous hash 
-            for (int i = this.chain.Count; i > 2; i--)
+            for (int i = this.chain.Count; i > 1; i--)
             {
                 Block actualBlock =  this.chain[i-1]; 
                 Block nextBlock = this.chain[i-2];
+
+                if(actualBlock.validTransaction() == false){
+                    Console.WriteLine("pb signature");
+                    return false ; 
+                }
+
                 if( actualBlock.hash != actualBlock.calculateHash()){
+                    Console.WriteLine("pb hash");
                     return false ;
                 }
                 if (actualBlock.previousHash != nextBlock.hash){
+                    Console.WriteLine("pb hash suivant");
                     return false ; 
                 }
             }
