@@ -3,15 +3,27 @@ namespace blockchainC_
     public class Chain
     {
         public int security {get; set;}
+        public int gain {get; set;}
+        public string sigle {get; set;}
         public List<Block>chain {get ; set;} 
         public List<Transaction>attente {get; set;} 
-        public int gain {get; set;}
+        
 
 
         //Constructeur 
-        public Chain(int security, int gain){
+        public Chain(int security, int gain, string sigle){
             this.security = security ;
-            this.gain = gain ; 
+            this.gain = gain ;
+            this.sigle = sigle ; 
+            this.chain = new List<Block>();
+            this.attente = new List<Transaction>();
+            initialiserChain();
+        }
+
+        public Chain(int security){
+            this.security = security ;
+            this.gain = 0 ;
+            this.sigle = "" ; 
             this.chain = new List<Block>();
             this.attente = new List<Transaction>();
             initialiserChain();
@@ -36,7 +48,7 @@ namespace blockchainC_
         * Fonction qui ajoute toutes les transactions en attente dans le block 
         *   puis les réalise, elle reverse un gain au mineur
         */
-        public void ajoutBlockAttente (string miningAdress){
+        public void ajoutBlockAttente (Wallet wal){
             Block nvBlock = new Block();
             for (int i = 0; i < this.attente.Count; i++)
             {
@@ -49,8 +61,24 @@ namespace blockchainC_
             * On vide les transactions en attente et on y ajoute celle du mining qui vient d'etre effectué
             */
             this.attente.RemoveRange(0, this.attente.Count);
-            Transaction nvTransaction = new Transaction(this.gain, miningAdress, "NULL"); 
+            Transaction nvTransaction = new Transaction(this.gain, this.sigle , wal.publicKey, "NULL");
+            nvTransaction.signTransaction(wal.cert); 
             this.attente.Add(nvTransaction);
+        }
+        //surcharge de la fonction pour la rende viable pour une blockchain message/systeme de vote 
+        public void ajoutBlockAttente (){
+            Block nvBlock = new Block();
+            for (int i = 0; i < this.attente.Count; i++)
+            {
+                nvBlock.transactions.Add(this.attente[i]);
+            }
+            nvBlock.previousHash = this.getLastBlock().hash;
+            nvBlock.mineBlock(this.security);
+            this.chain.Add(nvBlock);
+            /*
+            * On vide les transactions en attente
+            */
+            this.attente.RemoveRange(0, this.attente.Count);      
         }
         
         /*
@@ -92,6 +120,83 @@ namespace blockchainC_
                 }
             }
             return true ; 
+        }
+
+        public int getBalanceOfAdress(string? adress){
+            int res = 0 ; 
+            foreach (Block block in chain)
+            {
+                foreach (Transaction tx in block.transactions)
+                {
+                    if (tx.receptionAdress == adress)
+                    {
+                        res = res + tx.data.montant ; 
+                    }
+                    if (tx.envoiAdress == adress)
+                    {
+                        res = res - tx.data.montant ;
+                    }
+                }
+            }
+            return res ;
+        }
+
+        public Boolean verifVote(string address){
+            foreach(Block block in chain){
+                foreach (Transaction tx in block.transactions)
+                {
+                    if (address == tx.envoiAdress){
+                        return false ; 
+                    }
+                }
+            }
+            foreach (Transaction tx in attente)
+            {
+                if (address == tx.envoiAdress){
+                        return false ; 
+                    }
+            }
+            return true ; 
+        }
+
+        public void compterVote(){
+            List<string> resultat = new List<string>();
+            foreach (Block block in chain)
+            {
+                foreach (Transaction tx in block.transactions)
+                {
+                    if(tx.data.nom is null){tx.data.nom="";}
+                    //passage de tout en majuscule pour faciliter le decompte
+                    resultat.Add(tx.data.nom.ToUpper());
+                }
+            }
+            Console.WriteLine("Nombre de vote: "+resultat.Count);
+        }
+        // Fonction qui depouille les voix et les comptabilise
+        public void depouillage(List<string> candidat){
+            List<string> resultat = new List<string>();
+            foreach (Block block in chain)
+            {
+                foreach (Transaction tx in block.transactions)
+                {
+                    if(tx.data.nom is null){tx.data.nom="";}
+                    //passage de tout en majuscule pour faciliter le decompte
+                    resultat.Add(tx.data.nom.ToUpper());
+                }
+            } 
+            foreach (string cand in candidat)
+            {
+                int temp = 0 ; 
+                foreach (string vote in resultat)
+                {
+                    if (cand.ToUpper() == vote)
+                    {
+                        temp ++ ; 
+                    }
+                }
+                Console.WriteLine(cand + " nb voix : "+ temp);
+            }
+                Console.WriteLine("Nb Total voix :"+resultat.Count);
         }
     }
 }

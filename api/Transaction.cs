@@ -3,24 +3,42 @@ namespace blockchainC_{
     {
         public String receptionAdress {get; set;}
         public String envoiAdress {get; set;}
-        public int data {get; set;}
+        public Data data {get; set;}
 
         public String signature {get ; set;} 
         
         //Constructeur
-        public Transaction(int data, string receptionAdress, string envoiAdress){
+
+        //Transaction pour uen cryptocurrency
+        public Transaction(int montant, string sigle, string receptionAdress, string envoiAdress){
             this.receptionAdress = receptionAdress;
             this.envoiAdress = envoiAdress;
-            this.data = data;
+            this.data = new Data(montant, sigle);
+            this.signature = "NULL"; 
+        }
+
+        //Transaction pour une election/chat
+        public Transaction(string nom, string receptionAdress, string envoiAdress){
+            this.receptionAdress = receptionAdress;
+            this.envoiAdress = envoiAdress;
+            this.data = new Data(nom);
             this.signature = "NULL"; 
         }
 
 
         
-        public void signTransaction(X509Certificate2 signingkey){
-
+        public void signTransaction(X509Certificate2? signingkey){
+            if (signingkey is null)
+            {
+                throw new Exception("Certificat non crée pour ce wallet");
+            }
             byte[] myhash = Encoding.ASCII.GetBytes(this.envoiAdress + this.receptionAdress + this.data);
-            var sig = signingkey.GetECDsaPrivateKey().SignData(myhash,HashAlgorithmName.SHA256);  
+            ECDsa? temp = signingkey.GetECDsaPrivateKey();
+            if (temp is null)
+            {
+                throw new Exception("Pas de clé RSA pour signer la transaction");
+            }
+            var sig = temp.SignData(myhash,HashAlgorithmName.SHA256);  
             this.signature = Convert.ToBase64String(sig);
         }
 

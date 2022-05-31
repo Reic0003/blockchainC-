@@ -21,16 +21,25 @@ namespace blockchainC_
 
            this.cert = new CertificateRequest("cn=Test", ECDsa.Create(ECCurve.NamedCurves.nistP256), HashAlgorithmName.SHA256)
                 .CreateSelfSigned(DateTime.UtcNow.AddDays(-2), DateTime.UtcNow.AddDays(2));
-            var privateKeybyte = cert.GetECDsaPrivateKey().ExportECPrivateKey();
+            ECDsa? temp = cert.GetECDsaPrivateKey() ; 
+            if (temp is null)
+            {
+                throw new Exception ("Erreur création du certificat, pas de clé privé associé");
+            }
+            var privateKeybyte = temp.ExportECPrivateKey();
             this.privateKey = Convert.ToBase64String(privateKeybyte);
-            var publicKeybyte = cert.GetECDsaPublicKey().ExportSubjectPublicKeyInfo();
+            ECDsa? tempPublic = cert.GetECDsaPublicKey();
+            if (tempPublic is null)
+            {
+                throw new Exception("Pas de clé ECDsa Publique lors de la création du cerificat");
+            }
+            var publicKeybyte = tempPublic.ExportSubjectPublicKeyInfo();
             this.publicKey = Convert.ToBase64String(publicKeybyte);
-            Console.WriteLine("private key :"+this.privateKey);
-            Console.WriteLine("public key :"+this.publicKey);
         }
         
-        public int getBalance(){
-            return this.balance ; 
+        public void exportKey(){
+            Console.WriteLine("Privatekey :"+this.privateKey);
+            Console.WriteLine("Publickey :"+this.publicKey);
         }
         
     }
