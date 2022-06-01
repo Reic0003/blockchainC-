@@ -5,14 +5,12 @@ namespace blockchainC_
     {
         public string publicKey ;
         public string privateKey ;
-        public int balance ;
         
         public X509Certificate2? cert; 
         
         public Wallet(){
             this.publicKey ="NULL" ; 
             this.privateKey="NULL" ; 
-            this.balance = 0 ; 
             generatePairKey();
         }
 
