@@ -6,7 +6,7 @@ String? temp, sigle ;
 String? address , address2;
 String jsonString ;
 List<Wallet> wallets = new List<Wallet>() ; 
-Console.Write("\nChoisir quel type de blockchain voulez vous mettre en place \n1: CryptoBlockchain\n2: Blockchain élection");
+Console.WriteLine("\nChoisir quel type de blockchain voulez vous mettre en place \n1: CryptoBlockchain\n2: Blockchain élection");
 temp = Console.ReadLine(); 
 if (int.TryParse(temp, out choix)){} else {};
 switch (choix)
@@ -56,6 +56,8 @@ switch (choix)
                                                         }
                                                 }
                                                 
+                                        }else{
+                                                Console.WriteLine("Wallet associé à cette clé inexistant");
                                         }    
                                         }
                                 break ;
@@ -97,6 +99,7 @@ switch (choix)
                 if (int.TryParse(temp, out choix)){} else {};
                 var myBlockchainElection = new Chain(choix);
                 List<string> candidat = new List<string>();
+                candidat.Add("");
                 while(choix > -1 && choix < 10){
                         Console.WriteLine("Que voulez vous faire ?\n1 : Ajoutez un vote dans la blockchain\n2 : Affichez l'etat de votre blockchain\n3 : Miner le prochain block pour inscrire les votes dans la blockchain\n4 : Vérifiez l'intégrité de la blockchain\n5 : Créer un Wallet \n6 : Ajouter un candidat\n7 : Générer 100 vote aléatoire parmi les candidats\n8 : Compter les votes\n9 : Dépouiller les votes \n0 : Afficher la liste de canddiat");
                         temp = Console.ReadLine();

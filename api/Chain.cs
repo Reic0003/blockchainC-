@@ -183,20 +183,27 @@ namespace blockchainC_
                     //passage de tout en majuscule pour faciliter le decompte
                     resultat.Add(tx.data.nom.ToUpper());
                 }
-            } 
+            }
+            int nul = 0;
             foreach (string cand in candidat)
             {
-                int temp = 0 ; 
+                int temp = 0 ;  
                 foreach (string vote in resultat)
                 {
+                     
                     if (cand.ToUpper() == vote)
                     {
                         temp ++ ; 
                     }
                 }
-                Console.WriteLine(cand + " nb voix : "+ temp);
+                nul = nul + temp ; 
+                Console.WriteLine(nul);
+                Console.WriteLine("\""+cand.ToUpper() + "\" nombre de voix obtenu : "+ temp);
             }
-                Console.WriteLine("Nb Total voix :"+resultat.Count);
+            int max = resultat.Count;
+            nul = (max - nul);
+            Console.WriteLine("Nombre Total vote NUL :"+ nul);
+            Console.WriteLine("Nombre Total vote :"+resultat.Count);
         }
     }
 }
