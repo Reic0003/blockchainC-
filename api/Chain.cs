@@ -10,7 +10,8 @@ namespace blockchainC_
         
 
 
-        //Constructeur 
+        //Constructeurs 
+        //Construceteur pour le cas d'une cryptomonnaie
         public Chain(int security, int gain, string sigle){
             this.security = security ;
             this.gain = gain ;
@@ -19,7 +20,7 @@ namespace blockchainC_
             this.attente = new List<Transaction>();
             initialiserChain();
         }
-
+        //Constructeur pour le cas d'une election 
         public Chain(int security){
             this.security = security ;
             this.gain = 0 ;
